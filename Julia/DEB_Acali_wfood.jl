@@ -186,7 +186,7 @@ end
 
 # === Initialization ===
 function initialize_earthworm(Winit, init_status, p::DEBEarthwormParams, d::DEBDerivedParams;
-                               OM_soil_init=100.0, OM_horse_init=50.0)
+                               OM_soil_init=10.0, OM_horse_init=5.0)
     E0 = d.Em
     L0 = (Winit / (1 + p.w))^(1/3)
     
@@ -431,9 +431,15 @@ end
 # ============================================================================
 # RUN SIMULATION WITH EVENTS
 # ============================================================================
+# Simulate Bart2019_XP1_1
+# Init= 1;
+# WeightSoilCosm = 400;
+# Winit=0.01;
+# Soil=1;
+# Texp=15;
 
 # Model parameters
-params = DEBEarthwormParams(Texp = 20.0, Dens = 1.0)
+params = DEBEarthwormParams(Texp = 15.0, Dens = 1.0)
 derived = derive_params(params)
 
 println("=== Derived Parameters ===")
@@ -452,8 +458,8 @@ println("Initial weight: $(Winit * 1000) mg")
 println("Initial physical length: $(round(Size_init, digits=2)) cm")
 
 u0 = initialize_earthworm(Winit, init_status, params, derived;
-                          OM_soil_init = 100.0,
-                          OM_horse_init = 30.0)
+                          OM_soil_init = 10.0,
+                          OM_horse_init = 3.0)
 
 # Simulation time
 tspan = (0.0, 365.0)
@@ -461,10 +467,10 @@ tspan = (0.0, 365.0)
 # Define feeding schedule
 feeding = FeedingSchedule(
     horse_interval = 14.0,    # Every 2 weeks
-    horse_amount = 20.0,      # 20g horse manure (additive)
+    horse_amount = 2.7,      # 2.7g horse manure (additive)
     horse_start = 14.0,       # First addition at day 14
     soil_interval = 28.0,     # Every 4 weeks
-    soil_amount = 100.0,      # Replace with 100g fresh soil
+    soil_amount = 13.0,      # Replace with 13g of soil OM matter
     soil_start = 28.0,        # First change at day 28
     verbose = true            # Print event messages
 )
