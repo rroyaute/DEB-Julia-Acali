@@ -36,7 +36,7 @@ Base.@kwdef struct PriorDistributions
     r_pAm_pM::Distribution = truncated(Normal(1.5, 0.2), 0.01, 100.0)
     
     # Allocation
-    kap::Distribution = Uniform(0.05, 0.25)
+    kap::Distribution = Uniform(0.05, 0.95)
     
     # Maturity (sampled directly, not derived)
     Ehb::Distribution = truncated(Normal(0.5, 0.5), 0.1, 10.0)
